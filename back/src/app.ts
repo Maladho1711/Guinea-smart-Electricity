@@ -44,11 +44,28 @@ const corsOptions = {
     if (!origin || origin.startsWith('http://localhost:') || origin.startsWith('http://127.0.0.1:')) {
       callback(null, true);
     } else {
-      // En production, vérifier l'origine exacte
-      const allowedOrigins = process.env.FRONTEND_URL ? [process.env.FRONTEND_URL] : [];
-      if (allowedOrigins.includes(origin)) {
+      // En production, accepter les domaines Vercel et le FRONTEND_URL configuré
+      const allowedOrigins: string[] = [];
+      
+      // Ajouter FRONTEND_URL si défini
+      if (process.env.FRONTEND_URL) {
+        allowedOrigins.push(process.env.FRONTEND_URL);
+      }
+      
+      // Accepter tous les domaines Vercel (*.vercel.app)
+      if (origin.includes('.vercel.app')) {
+        callback(null, true);
+        return;
+      }
+      
+      // Vérifier si l'origine est dans la liste autorisée
+      if (allowedOrigins.length > 0 && allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else if (allowedOrigins.length === 0) {
+        // Si aucune origine n'est configurée, accepter toutes les origines (pour le développement)
         callback(null, true);
       } else {
+        console.warn(`⚠️ CORS: Origine non autorisée: ${origin}`);
         callback(new Error('Not allowed by CORS'));
       }
     }
