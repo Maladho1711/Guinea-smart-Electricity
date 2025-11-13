@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Animation pour le scroll horizontal des features */
+@keyframes scroll-left {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes scroll-right {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0%); }
+}
+
+/* Augmenter la vitesse en réduisant la durée de l'animation */
+.animate-scroll-left {
+  animation: scroll-left 20s linear infinite; /* plus rapide */
+}
+
+.animate-scroll-right {
+  animation: scroll-right 20s linear infinite; /* plus rapide */
+}
+
+/* Pause au hover */
+.hover\:animation-play-state-paused:hover {
+  animation-play-state: paused !important;
+}
