@@ -24,5 +24,13 @@ const startServer = async () => {
   }
 };
 
-startServer();
+// Pour Vercel Serverless Functions, exporter l'app sans démarrer le serveur
+// Pour les autres services (Railway, Render, etc.), démarrer le serveur normalement
+if (process.env.VERCEL) {
+  // Mode Vercel - exporter l'app seulement
+  export default app;
+} else {
+  // Mode normal - démarrer le serveur
+  startServer();
+}
 
