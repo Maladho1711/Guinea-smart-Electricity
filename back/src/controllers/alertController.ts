@@ -23,7 +23,7 @@ export const createUserAlert = async (req: AuthRequest, res: Response) => {
     }
 
     const alert = await createAlert({
-      userId: userId as any,
+      userId: userId,
       type,
       title,
       message,

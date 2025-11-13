@@ -9,7 +9,7 @@ if (process.env.HUGGINGFACE_API_KEY) {
   hf = new HfInference();
 }
 
-interface ConsumptionData {
+export interface ConsumptionData {
   currentMonth: number;
   previousMonth: number;
   averageConsumption: number;
@@ -177,7 +177,6 @@ export async function analyzeInvoices(invoices: any[]): Promise<{
   if (recentInvoices.length >= 2) {
     const amounts = recentInvoices.map(inv => inv.amount);
     const isIncreasing = amounts[0] > amounts[amounts.length - 1];
-    const isDecreasing = amounts[0] < amounts[amounts.length - 1];
     const change = Math.abs(amounts[0] - amounts[amounts.length - 1]) / amounts[amounts.length - 1];
     
     if (change > 0.1) {

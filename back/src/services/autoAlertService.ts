@@ -37,7 +37,7 @@ export async function generateAutoAlert(
       }`;
 
       await createAlert({
-        userId: userId as any,
+        userId: userId,
         type: 'consommation',
         title,
         message,

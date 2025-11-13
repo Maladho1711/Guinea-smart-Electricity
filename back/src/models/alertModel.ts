@@ -62,9 +62,23 @@ const Alert = mongoose.model<IAlert>('Alert', alertSchema);
 
 export default Alert;
 
+// Type pour les données d'alerte sans les méthodes Mongoose
+export interface IAlertInput {
+  userId: mongoose.Types.ObjectId | string;
+  type: 'consommation' | 'facture' | 'panne' | 'maintenance' | 'paiement' | 'autre';
+  title: string;
+  message: string;
+  priority: 'basse' | 'moyenne' | 'haute' | 'critique';
+  status: 'active' | 'lue' | 'archivée';
+  readAt?: Date;
+}
+
 // Fonctions utilitaires
-export const createAlert = async (alertData: Omit<IAlert, '_id' | 'createdAt' | 'updatedAt'>): Promise<IAlert> => {
-  const alert = new Alert(alertData);
+export const createAlert = async (alertData: IAlertInput): Promise<IAlert> => {
+  const alert = new Alert({
+    ...alertData,
+    userId: typeof alertData.userId === 'string' ? new mongoose.Types.ObjectId(alertData.userId) : alertData.userId,
+  });
   return await alert.save();
 };
 

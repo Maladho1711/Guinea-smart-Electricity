@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { HfInference } from '@huggingface/inference';
-import { analyzeConsumption, analyzeInvoices, generateAnalysisReport } from '../services/aiAnalysisService';
+import { analyzeConsumption, generateAnalysisReport } from '../services/aiAnalysisService';
 
 // Initialiser Hugging Face (gratuit, optionnel avec token pour plus de requêtes)
 let hf: HfInference | null = null;
