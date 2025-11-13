@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://guinea-smart-electricity.vercel.app/sitemap.xml
+
