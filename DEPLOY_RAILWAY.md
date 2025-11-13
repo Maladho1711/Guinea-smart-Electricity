@@ -42,7 +42,7 @@ NODE_ENV=production
 PORT=3000
 MONGODB_URI=mongodb+srv://maladhob5:Kadiatou2@clusterdw03.wqjnl8l.mongodb.net/?appName=ClusterDW03
 JWT_SECRET=votre_secret_jwt_super_securise_changez_moi
-FRONTEND_URL=https://guinea-smart-electricity-mrxb.vercel.app
+FRONTEND_URL=https://guinea-smart-electricity.vercel.app
 HUGGINGFACE_API_KEY=votre_cle_huggingface
 HUGGINGFACE_MODEL=google/flan-t5-large
 ```
