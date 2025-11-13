@@ -3,6 +3,7 @@ import { Users, BarChart3, Smartphone, LogIn, UserPlus, CreditCard, Bell, Messag
 import { MapPin, Mail, Phone, Link, ShieldCheck } from 'lucide-react';
 import { Link as RouterLink } from 'react-router-dom';
 import logoImage from "../../assets/guineaSmart.jpg";
+import heroImage from "../../../Asset/image.jpg";
 
 interface LandingPageProps {
   onGetStarted: (isLogin: boolean) => void;
@@ -11,8 +12,8 @@ interface LandingPageProps {
 // Header Component
 function LandingHeader({ onGetStarted }: { onGetStarted: (isLogin: boolean) => void }) {
   return (
-    <header className="bg-white/80 text-gray-800 shadow-md sticky top-0 z-50 mx-4 sm:mx-6 lg:mx-8 my-4 rounded-lg">
-      <div className="container mx-auto px-2 sm:px-4 py-3 flex items-center justify-between gap-2">
+    <header className="bg-white/80 text-gray-800 shadow-md sticky top-0 z-50 w-full rounded-b-lg">
+      <div className="max-w-4xl mx-auto px-2 sm:px-4 py-2 flex items-center justify-between gap-2">
         {/* Logo */}
         <div className="flex items-center">
           <img
@@ -81,26 +82,26 @@ export function LandingPage({ onGetStarted }: LandingPageProps) {
       <LandingHeader onGetStarted={onGetStarted} />
 
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 mt-16 mx-4 sm:mx-6 lg:mx-8 rounded-lg">
+      <section className="relative h-[60vh] min-h-[500px] max-h-[700px] flex items-center justify-center overflow-hidden -mt-1 mx-4 sm:mx-6 lg:mx-8 rounded-lg">
         <img
-          src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&w=1950&q=80"
-          alt="Technologie et Innovation"
-          className="absolute inset-0 w-full h-full object-cover filter blur-sm brightness-40 scale-105"
+          src={heroImage}
+          alt="Guinea Smart Electricity - Technologie et Innovation"
+          className="absolute inset-0 w-full h-full object-cover filter blur-sm brightness-40 rounded-lg"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/50 to-green-900/30"></div>
-        <div className="relative z-10 text-center max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-0">
-          <div className="mb-5 md:mb-6">
-            <div className="flex items-center justify-center space-x-4 mb-3 md:mb-4">
+        <div className="relative z-10 text-center max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-4 md:py-6">
+          <div className="mb-4 md:mb-5">
+            <div className="flex items-center justify-center space-x-4 mb-2 md:mb-3">
               <img
                 src={logoImage}
                 alt="Guinea Smart Electricity Logo"
-                className="h-20 md:h-32 object-contain drop-shadow-lg"
+                className="h-16 md:h-24 object-contain drop-shadow-lg"
               />
             </div>
-            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight">
+            <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-white leading-tight">
               L'IA qui révolutionne le service client EDG
             </h1>
-            <p className="text-sm sm:text-base md:text-base lg:text-lg text-white/90 mt-2 md:mt-3">
+            <p className="text-xs sm:text-sm md:text-base text-white/90 mt-2">
               Guinea Smart Electricity : Votre relation avec EDG transformée par l'intelligence artificielle
             </p>
           </div>

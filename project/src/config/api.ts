@@ -10,6 +10,8 @@ export const API_ENDPOINTS = {
   users: `${API_BASE_URL}/api/users`,
   projects: `${API_BASE_URL}/api/projects`,
   tickets: `${API_BASE_URL}/api/tickets`,
+  alerts: `${API_BASE_URL}/api/alerts`,
+  analysis: `${API_BASE_URL}/api/analysis`,
   eva: {
     chat: `${API_BASE_URL}/api/eva/chat`,
   },
