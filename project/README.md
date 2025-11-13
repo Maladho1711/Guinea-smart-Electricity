@@ -51,16 +51,16 @@ Le projet respecte strictement les couleurs du drapeau guinéen :
 - **Lucide React** - Icônes modernes
 
 ### Backend & Base de données
-- **Supabase** - Backend-as-a-Service
+- **Node.js/Express** - API REST backend
   - Authentification JWT
-  - Base de données PostgreSQL
-  - Row Level Security (RLS)
-  - API REST automatique
+  - Base de données MongoDB (MongoDB Atlas)
+  - Sécurité renforcée (Helmet, CORS, Rate Limiting)
+  - Validation des données
 
 ## 📋 Prérequis
 
 - Node.js 18+ et npm
-- Compte Supabase (gratuit)
+- MongoDB Atlas (gratuit) ou MongoDB local
 
 ## 🚀 Installation
 
@@ -77,20 +77,28 @@ cd guinea-smart-electricity
 npm install
 ```
 
-### 3. Configurer Supabase
+### 3. Configurer le backend
 
-1. Créez un compte sur [supabase.com](https://supabase.com)
-2. Créez un nouveau projet
-3. La migration de base de données a déjà été appliquée automatiquement
-4. Récupérez vos clés API dans Project Settings > API
+1. Allez dans le dossier `back/`
+2. Installez les dépendances : `npm install`
+3. Configurez MongoDB Atlas ou utilisez MongoDB local
+4. Créez un fichier `.env` dans `back/` avec vos variables d'environnement
 
 ### 4. Configurer les variables d'environnement
 
-Créez un fichier `.env` à la racine du projet :
+Créez un fichier `.env` à la racine du projet `project/` :
 
 ```env
-VITE_SUPABASE_URL=votre_url_supabase
-VITE_SUPABASE_ANON_KEY=votre_cle_anon
+VITE_API_URL=http://localhost:3000
+```
+
+Pour le backend, créez un fichier `.env` dans `back/` :
+
+```env
+MONGODB_URI=votre_uri_mongodb
+JWT_SECRET=votre_secret_jwt
+PORT=3000
+FRONTEND_URL=http://localhost:5173
 ```
 
 ### 5. Lancer l'application
@@ -118,20 +126,20 @@ docker-compose up -d
 
 ## 🗄️ Structure de la base de données
 
-### Tables principales
+### Collections MongoDB principales
 
-- **profiles** - Profils utilisateurs (client, technicien, manager)
+- **users** - Utilisateurs (citoyen, pme, technicien, manager, etat, admin)
 - **tickets** - Pannes signalées
-- **payments** - Paiements effectués
-- **invoices** - Factures d'électricité
-- **chat_messages** - Historique des conversations avec EVA
+- **projects** - Projets d'infrastructure
+- **payments** - Paiements effectués (à implémenter)
 
 ### Sécurité
 
-Toutes les tables sont protégées par Row Level Security (RLS) :
-- Les clients ne voient que leurs propres données
-- Les techniciens peuvent voir et gérer tous les tickets
-- Les managers ont un accès complet en lecture
+- Authentification JWT avec tokens sécurisés
+- Middleware de validation des données
+- Rate limiting pour protéger contre les attaques
+- Protection contre les injections NoSQL
+- CORS configuré pour les domaines autorisés
 
 ## 👥 Rôles et Permissions
 
@@ -179,10 +187,11 @@ Pour tester l'application, créez des comptes avec les différents rôles :
 
 ## 🔒 Sécurité
 
-- ✅ Authentification JWT via Supabase
-- ✅ Row Level Security sur toutes les tables
-- ✅ Validation côté serveur
-- ✅ Protection contre les injections SQL
+- ✅ Authentification JWT personnalisée
+- ✅ Validation des données côté serveur
+- ✅ Protection contre les injections NoSQL
+- ✅ Rate limiting pour les API
+- ✅ Helmet pour les en-têtes HTTP sécurisés
 - ✅ HTTPS obligatoire en production
 
 ## 🚧 Roadmap

@@ -13,8 +13,7 @@ services:
       - "5173:5173"
     environment:
       - NODE_ENV=development
-      - VITE_SUPABASE_URL=${VITE_SUPABASE_URL}
-      - VITE_SUPABASE_ANON_KEY=${VITE_SUPABASE_ANON_KEY}
+      - VITE_API_URL=${VITE_API_URL}
     command: sh -c "npm install && npm run dev -- --host"
     networks:
       - gse-network
