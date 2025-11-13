@@ -1,10 +1,18 @@
 import { useEffect, useState } from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import L from 'leaflet';
-import { Database } from '../../lib/database.types';
 import 'leaflet/dist/leaflet.css';
 
-type TicketType = Database['public']['Tables']['tickets']['Row'];
+export interface TicketType {
+  id: string;
+  title: string;
+  description: string;
+  address?: string;
+  latitude: number | null;
+  longitude: number | null;
+  priority: 'basse' | 'moyenne' | 'haute' | 'critique';
+  status?: string;
+}
 
 interface TicketsMapProps {
   tickets: TicketType[];
