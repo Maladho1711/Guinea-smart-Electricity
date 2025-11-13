@@ -1,16 +1,29 @@
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 
-dotenv.config();
+// Charger dotenv uniquement en développement (Railway fournit déjà les variables en production)
+if (process.env.NODE_ENV !== 'production') {
+    dotenv.config();
+}
 
 const connectDB = async (): Promise<void> => {
     try {
+        // Debug : Afficher toutes les variables d'environnement disponibles (masquées)
+        console.log('🔍 Variables d\'environnement disponibles:');
+        const envKeys = Object.keys(process.env).filter(key => 
+            key.includes('MONGO') || key.includes('JWT') || key.includes('PORT') || key.includes('NODE')
+        );
+        envKeys.forEach(key => {
+            console.log(`   ${key}: ${process.env[key] ? '✅ définie' : '❌ non définie'}`);
+        });
+        
         // Vérifier que MONGODB_URI est définie
         const mongoURI = process.env.MONGODB_URI;
         
         if (!mongoURI) {
             console.error('❌ MONGODB_URI n\'est pas définie dans les variables d\'environnement');
             console.error('💡 Vérifiez que la variable MONGODB_URI est configurée dans Railway');
+            console.error('💡 Variables disponibles:', Object.keys(process.env).join(', '));
             throw new Error('MONGODB_URI n\'est pas définie dans les variables d\'environnement');
         }
 

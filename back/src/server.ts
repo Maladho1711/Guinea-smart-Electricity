@@ -3,8 +3,10 @@ import app from './app';
 import connectDB from './config/db';
 import * as net from 'net';
 
-// Charger les variables d'environnement
-dotenv.config();
+// Charger dotenv uniquement en développement (Railway fournit déjà les variables en production)
+if (process.env.NODE_ENV !== 'production') {
+    dotenv.config();
+}
 
 const DEFAULT_PORT = parseInt(process.env.PORT || '3000', 10);
 const MAX_PORT_ATTEMPTS = 10; // Nombre maximum de ports à essayer
