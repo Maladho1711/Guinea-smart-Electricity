@@ -81,9 +81,8 @@ Pouvez-vous reformuler votre question ?`;
     }
 
     // Utiliser un modèle optimisé pour les conversations (gratuit)
-    // Options : mistralai/Mistral-7B-Instruct-v0.2 (conversational), meta-llama/Llama-2-7b-chat-hf, microsoft/DialoGPT-large
-    // Note: Mistral nécessite l'API conversational (chatCompletion), pas textGeneration
-    const model = process.env.HUGGINGFACE_MODEL || 'mistralai/Mistral-7B-Instruct-v0.2';
+    // Options : google/flan-t5-large (par défaut, rapide et fiable), mistralai/Mistral-7B-Instruct-v0.2, meta-llama/Llama-2-7b-chat-hf
+    const model = process.env.HUGGINGFACE_MODEL || 'google/flan-t5-large';
     
     try {
       // Construire un prompt simple et efficace pour textGeneration
