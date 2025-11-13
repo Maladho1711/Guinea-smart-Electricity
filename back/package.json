@@ -13,7 +13,10 @@
         "reset-admin-password": "ts-node src/scripts/resetAdminPassword.ts",
         "create-user": "ts-node src/scripts/createUser.ts",
         "reset-user-password": "ts-node src/scripts/resetUserPassword.ts",
-        "list-users": "ts-node src/scripts/listUsers.ts"
+        "list-users": "ts-node src/scripts/listUsers.ts",
+        "list-citoyens": "ts-node src/scripts/listCitoyens.ts",
+        "get-user-details": "ts-node src/scripts/getUserDetails.ts",
+        "show-profile": "ts-node src/scripts/showUserProfile.ts"
     },
     "keywords": [
         "guinea",

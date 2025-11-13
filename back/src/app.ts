@@ -8,6 +8,8 @@ import userRoutes from './routes/userRoutes';
 import projectRoutes from './routes/projectRoutes';
 import ticketRoutes from './routes/ticketRoutes';
 import evaRoutes from './routes/evaRoutes';
+import alertRoutes from './routes/alertRoutes';
+import analysisRoutes from './routes/analysisRoutes';
 import { apiRateLimiter, sanitizeMongo, requestSizeLimiter } from './middleware/securityMiddleware';
 import { notFoundHandler, errorHandler } from './middleware/errorHandler';
 
@@ -97,6 +99,8 @@ app.use('/api/users', userRoutes);
 app.use('/api/projects', projectRoutes);
 app.use('/api/tickets', ticketRoutes);
 app.use('/api/eva', evaRoutes);
+app.use('/api/alerts', alertRoutes);
+app.use('/api/analysis', analysisRoutes);
 
 // Route de santé
 app.get('/api/health', (_req, res) => {

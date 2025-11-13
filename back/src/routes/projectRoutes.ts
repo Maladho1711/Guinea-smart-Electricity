@@ -1,10 +1,10 @@
 import { Router } from 'express';
 import {
-  getProjects,
-  getProjectByIdHandler,
-  createProjectHandler,
-  updateProjectHandler,
-  deleteProjectHandler,
+    getProjects,
+    getProjectByIdHandler,
+    createProjectHandler,
+    updateProjectHandler,
+    deleteProjectHandler,
 } from '../controllers/projectController';
 import { authenticateToken } from '../middleware/authMiddleware';
 import { authorizeRoles } from '../middleware/roleMiddleware';
