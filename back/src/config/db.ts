@@ -5,14 +5,19 @@ dotenv.config();
 
 const connectDB = async (): Promise<void> => {
     try {
-        const mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/guinea_smart_electricity';
-
+        // Vérifier que MONGODB_URI est définie
+        const mongoURI = process.env.MONGODB_URI;
+        
         if (!mongoURI) {
+            console.error('❌ MONGODB_URI n\'est pas définie dans les variables d\'environnement');
+            console.error('💡 Vérifiez que la variable MONGODB_URI est configurée dans Railway');
             throw new Error('MONGODB_URI n\'est pas définie dans les variables d\'environnement');
         }
 
         console.log('🔄 Tentative de connexion à MongoDB...');
-        console.log(`📍 URI: ${mongoURI.replace(/\/\/([^:]+):([^@]+)@/, '//***:***@')}`); // Masquer les credentials
+        // Masquer les credentials dans les logs
+        const maskedURI = mongoURI.replace(/\/\/([^:]+):([^@]+)@/, '//***:***@');
+        console.log(`📍 URI: ${maskedURI}`);
 
         // Avec Mongoose 7+, pas besoin de useNewUrlParser ni useUnifiedTopology
         const conn = await mongoose.connect(mongoURI);
