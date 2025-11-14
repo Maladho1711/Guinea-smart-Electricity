@@ -64,9 +64,17 @@ const startServer = async () => {
     const availablePort = await findAvailablePort(DEFAULT_PORT);
     
     // Démarrage du serveur sur le port disponible
-    const server = app.listen(availablePort, () => {
+    // En production, écouter sur 0.0.0.0 pour accepter les connexions depuis l'extérieur
+    // En développement, écouter sur localhost
+    const host = process.env.NODE_ENV === 'production' ? '0.0.0.0' : 'localhost';
+    
+    const server = app.listen(availablePort, host, () => {
       console.log(`🚀 Serveur démarré sur le port ${availablePort}`);
-      console.log(`📍 URL: http://localhost:${availablePort}`);
+      console.log(`📍 URL locale: http://localhost:${availablePort}`);
+      if (process.env.NODE_ENV === 'production') {
+        console.log(`🌐 URL publique: http://0.0.0.0:${availablePort}`);
+        console.log(`💡 Le serveur écoute sur toutes les interfaces réseau`);
+      }
       console.log(`🌍 Environnement: ${process.env.NODE_ENV || 'development'}`);
       
       if (availablePort !== DEFAULT_PORT) {

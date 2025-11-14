@@ -6,7 +6,7 @@ import mongoSanitize from 'express-mongo-sanitize';
 const isDevelopment = process.env.NODE_ENV === 'development';
 export const authRateLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: isDevelopment ? 50 : 5, // 50 tentatives en dev, 5 en production
+  max: isDevelopment ? 50 : 10, // 50 tentatives en dev, 10 en production (augmenté de 5 à 10)
   message: {
     error: 'Trop de tentatives de connexion. Veuillez réessayer dans 15 minutes.',
   },

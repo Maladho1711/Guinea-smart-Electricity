@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { BrowserRouter, useLocation, useNavigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import { Header } from './components/Layout/Header';
@@ -18,8 +17,6 @@ import { Zap } from 'lucide-react';
 function AppContent() {
   const location = useLocation();
   const navigate = useNavigate();
-  const [showLogin, setShowLogin] = useState(true);
-  const [showLanding, setShowLanding] = useState(true);
   const { user, profile, loading } = useAuth();
 
   // Vérifier localStorage au début pour éviter le flash de la page d'accueil
@@ -66,12 +63,12 @@ function AppContent() {
     const isAuthenticated = localStorage.getItem('isAuthenticated') === 'true';
     const storedRole = localStorage.getItem('userRole');
 
-    if (isAuthenticated && storedRole === 'client' && (user || !loading)) {
+    if (isAuthenticated && storedRole === 'pme' && (user || !loading)) {
       return <PMEDashboard />;
     }
 
     if (!user || !profile) {
-      if (isAuthenticated && storedRole === 'client') {
+      if (isAuthenticated && storedRole === 'pme') {
         return (
           <div className="min-h-screen bg-gradient-to-br from-red-50 via-yellow-50 to-green-50 flex items-center justify-center">
             <div className="text-center">
@@ -172,12 +169,12 @@ function AppContent() {
     const isAuthenticated = localStorage.getItem('isAuthenticated') === 'true';
     const storedRole = localStorage.getItem('userRole');
 
-    if (isAuthenticated && storedRole === 'manager' && (user || !loading)) {
+    if (isAuthenticated && storedRole === 'etat' && (user || !loading)) {
       return <EtatDashboard />;
     }
 
     if (!user || !profile) {
-      if (isAuthenticated && storedRole === 'manager') {
+      if (isAuthenticated && storedRole === 'etat') {
         return (
           <div className="min-h-screen bg-gradient-to-br from-red-50 via-yellow-50 to-green-50 flex items-center justify-center">
             <div className="text-center">

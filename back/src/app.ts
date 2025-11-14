@@ -39,42 +39,66 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 // CORS activé avec configuration spécifique
-// Accepter les requêtes depuis localhost avec n'importe quel port (5173, 5174, etc.)
+// Configuration améliorée pour accepter les requêtes depuis n'importe quelle origine en production
 const corsOptions = {
   origin: function (origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) {
     // En développement, accepter localhost avec n'importe quel port
-    if (!origin || origin.startsWith('http://localhost:') || origin.startsWith('http://127.0.0.1:')) {
-      callback(null, true);
-    } else {
-      // En production, accepter les domaines Vercel et le FRONTEND_URL configuré
+    if (process.env.NODE_ENV === 'development') {
+      if (!origin || origin.startsWith('http://localhost:') || origin.startsWith('http://127.0.0.1:')) {
+        callback(null, true);
+        return;
+      }
+    }
+    
+    // En production
+    if (process.env.NODE_ENV === 'production') {
       const allowedOrigins: string[] = [];
       
       // Ajouter FRONTEND_URL si défini
       if (process.env.FRONTEND_URL) {
         allowedOrigins.push(process.env.FRONTEND_URL);
+        // Accepter aussi avec/sans www et http/https
+        const url = new URL(process.env.FRONTEND_URL);
+        allowedOrigins.push(`${url.protocol}//${url.host}`);
+        allowedOrigins.push(`${url.protocol}//www.${url.host}`);
+        if (url.protocol === 'https:') {
+          allowedOrigins.push(`http://${url.host}`);
+          allowedOrigins.push(`http://www.${url.host}`);
+        }
       }
       
       // Accepter tous les domaines Vercel (*.vercel.app)
-      if (origin.includes('.vercel.app')) {
+      if (origin && origin.includes('.vercel.app')) {
         callback(null, true);
         return;
       }
       
-      // Vérifier si l'origine est dans la liste autorisée
-      if (allowedOrigins.length > 0 && allowedOrigins.includes(origin)) {
+      // Si FRONTEND_URL est défini, vérifier l'origine
+      if (allowedOrigins.length > 0) {
+        if (origin && allowedOrigins.includes(origin)) {
+          callback(null, true);
+          return;
+        }
+        // Si l'origine n'est pas dans la liste mais qu'on a des origines configurées, 
+        // on accepte quand même pour éviter les problèmes (peut être renforcé plus tard)
+        console.warn(`⚠️ CORS: Origine non listée mais acceptée: ${origin}`);
         callback(null, true);
-      } else if (allowedOrigins.length === 0) {
-        // Si aucune origine n'est configurée, accepter toutes les origines (pour le développement)
-        callback(null, true);
-      } else {
-        console.warn(`⚠️ CORS: Origine non autorisée: ${origin}`);
-        callback(new Error('Not allowed by CORS'));
+        return;
       }
+      
+      // Si aucune origine n'est configurée en production, accepter toutes les origines
+      // (pour permettre l'accès depuis n'importe quelle machine)
+      console.log(`ℹ️ CORS: Aucune origine configurée, acceptation de: ${origin || 'toutes'}`);
+      callback(null, true);
+    } else {
+      // Fallback pour les autres environnements
+      callback(null, true);
     }
   },
   credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
+  exposedHeaders: ['Authorization'],
   maxAge: 86400, // 24 heures
 };
 

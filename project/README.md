@@ -116,14 +116,6 @@ npm run build
 npm run preview
 ```
 
-## 🐳 Docker (Optionnel)
-
-Un fichier `docker-compose.yml` est fourni pour faciliter le déploiement :
-
-```bash
-docker-compose up -d
-```
-
 ## 🗄️ Structure de la base de données
 
 ### Collections MongoDB principales
