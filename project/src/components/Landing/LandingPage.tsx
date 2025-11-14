@@ -3,7 +3,7 @@ import { Users, BarChart3, Smartphone, LogIn, UserPlus, CreditCard, Bell, Messag
 import { MapPin, Mail, Phone, Link, ShieldCheck } from 'lucide-react';
 import { Link as RouterLink } from 'react-router-dom';
 import logoImage from "../../assets/guineaSmart.jpg";
-import heroImage from "../../../Asset/image.jpg";
+import heroImage from "../../assets/guineaSmart.jpg";
 
 interface LandingPageProps {
   onGetStarted: (isLogin: boolean) => void;
